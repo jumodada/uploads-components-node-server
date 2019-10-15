@@ -1,0 +1,28 @@
+{
+  "name": "uploads-components-node-server",
+  "version": "1.0.0",
+  "description": "for vue-wheel",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jumodada/uploads-components-node-server.git"
+  },
+  "keywords": [
+    ""
+  ],
+  "author": "jumodada",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jumodada/uploads-components-node-server/issues"
+  },
+  "homepage": "https://github.com/jumodada/uploads-components-node-server#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "multer": "^1.4.2"
+  }
+}
