@@ -1,29 +1,34 @@
-const express = require('express')
-const cors = require('cors')
-const multer = require('multer')
-const upload = multer({dest: 'uploads/'})
-const app = express()
+const express = require('express');
+const multer = require('multer');
+const cors = require('cors');
+const upload = multer({ dest: 'uploads/' });
 
+const app = express();
 
-app.get('/get', (req, res, next) => {
-    res.send('get some message')
-})
-app.options('/upload',cors())
+app.get('/', (req, res) => {
+    res.send('hello nodejs');
+});
 
+app.options('/upload', cors());
+app.post('/upload', cors(), upload.single('file'), (req, res) => {
+    res.send(req.file.filename);
+});
 
-app.post('/upload',cors(),upload.single('file'), (req, res, next) => {
-    res.send(req.file.filename)
-})
-
-app.get('/preview/:key',cors(), (req, res) => {
-    res.sendFile(`uploads/${req.params.key}`,{
-        root:__dirname,
-        headers:{
-            'Content-Type':'image/jpeg'
+app.get('/preview/:key', cors(), (req, res) => {
+    res.sendFile(
+        `uploads/${req.params.key}`,
+        {
+            root: __dirname,
+            headers: {
+                'Content-Type': 'image/jpeg',
+            },
+        },
+        error => {
+            console.log(error);
         }
-    })
-})
+    );
+});
 
-let port = process.env.PORT || 3000
-console.log(port)
-app.listen(port)
+var port = process.env.PORT || 3000;
+console.log(port);
+app.listen(port);
