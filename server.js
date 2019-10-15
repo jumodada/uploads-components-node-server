@@ -1,34 +1,32 @@
-const express = require('express');
-const multer = require('multer');
-const cors = require('cors');
-const upload = multer({ dest: 'uploads/' });
+const express = require('express')
+const cors = require('cors')
+const multer = require('multer')
+const upload = multer({dest: 'uploads/'})
+const app = express()
 
-const app = express();
 
-app.get('/', (req, res) => {
-    res.send('hello nodejs');
-});
+app.options('/upload',cors())
 
-app.options('/upload', cors());
-app.post('/upload', cors(), upload.single('file'), (req, res) => {
-    res.send(req.file.filename);
-});
+app.get('/', (req, res, next) => {
+    res.send('Hello World')
+})
 
-app.get('/preview/:key', cors(), (req, res) => {
-    res.sendFile(
-        `uploads/${req.params.key}`,
-        {
-            root: __dirname,
-            headers: {
-                'Content-Type': 'image/jpeg',
-            },
-        },
-        error => {
-            console.log(error);
+app.get('/get', (req, res, next) => {
+    res.send('get some message')
+})
+app.post('/upload',cors(),upload.single('file'), (req, res, next) => {
+    res.send(req.file.filename)
+})
+
+app.get('/preview/:key',cors(), (req, res) => {
+    res.sendFile(`uploads/${req.params.key}`,{
+        root:__dirname,
+        headers:{
+            'Content-Type':'image/jpeg'
         }
-    );
-});
+    })
+})
 
-var port = process.env.PORT || 3000;
-console.log(port);
-app.listen(port);
+let port = process.env.PORT || 3000
+console.log(port)
+app.listen(port)
